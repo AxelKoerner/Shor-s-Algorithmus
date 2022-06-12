@@ -1,7 +1,10 @@
+from turtle import back
 from unittest.mock import NonCallableMagicMock
 from matplotlib import backend_bases
+from matplotlib.pyplot import title
+import qiskit
 from qiskit.algorithms import Shor
-from qiskit import QuantumCircuit, Aer, execute, transpile
+from qiskit import IBMQ, BasicAer, QuantumCircuit, Aer, execute, transpile, assemble
 from qiskit.tools.visualization import plot_histogram
 import numpy as np
 from qiskit.providers.aer import QasmSimulator
@@ -58,4 +61,11 @@ qc.measure(range(n_count), range(n_count))
 qc.draw(output='mpl', filename='circuit')
     #Zeichnet unsere Schaltung und speichert Sie als Bild (circuit.png) ab
 
+     
+simulator = BasicAer.get_backend('qasm_simulator')
+qc = transpile(qc, simulator)
 
+result = simulator.run(qc).result()
+counts = result.get_counts(qc)
+hist = plot_histogram(counts, title='Shors Algorithmus Wahrscheinlichkeiten')
+hist.savefig('histogram.png', bbox_inches='tight')
