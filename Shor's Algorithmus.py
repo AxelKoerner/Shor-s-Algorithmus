@@ -9,7 +9,6 @@ from qiskit.tools.visualization import plot_histogram
 import numpy as np
 from qiskit.providers.aer import QasmSimulator
 
-simulator = QasmSimulator()
 
 def modFunc(r, power):                      
     #Funktion welche die verschiedenen Varianten der Gleichung x^r ≡ 1 mod N prüft für Werte von r
